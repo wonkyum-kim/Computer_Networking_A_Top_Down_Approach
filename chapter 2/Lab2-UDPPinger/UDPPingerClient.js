@@ -20,9 +20,7 @@ function sendPing() {
     console.log(`Ping message sent: ${message}`);
     startTime = time;
 
-    // 1초가 넘어가면 응답을 기다리지 않고 다음 메시지를 보낸다.
     timerId = setTimeout(handleTimeout, 1000);
-    clearTimeout(timerId);
   });
 }
 
@@ -56,6 +54,7 @@ function handleMessage(message) {
 }
 
 client.on('message', (message) => {
+  clearTimeout(timerId);
   handleMessage(message.toString());
 });
 
