@@ -10,8 +10,13 @@ server.on('error', (err) => {
 });
 
 server.on('message', (msg, rinfo) => {
+  console.log(`server got: ${msg} from client`);
   const upper = msg.toString().toUpperCase();
-  console.log(`server got: ${upper} from ${rinfo.address}:${rinfo.port}`);
+  server.send(upper, rinfo.port, rinfo.address, (err) => {
+    if (err) {
+      console.error('Error', err);
+    }
+  });
 });
 
 server.on('listening', () => {
